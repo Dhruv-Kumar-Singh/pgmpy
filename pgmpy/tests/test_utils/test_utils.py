@@ -206,3 +206,21 @@ class TestSampleDiscrete(unittest.TestCase):
         np.testing.assert_array_equal(result1, result2)
 
         self.assertTrue(set(result1.tolist()).issubset({"a", "b", "c"}))
+
+    def test_sample_discrete_with_conditional_string_values(self):
+        values = np.array(["low", "mid", "high"])
+        weights = np.array([[0.2, 0.5, 0.3], [0.1, 0.1, 0.8], [0.2, 0.5, 0.3]])
+
+        samples = sample_discrete(values, weights, size=3, rng=0)
+
+        self.assertEqual(samples.dtype, values.dtype)
+        self.assertTrue(set(samples.tolist()).issubset(set(values.tolist())))
+
+    def test_sample_discrete_with_conditional_integer_values(self):
+        values = np.array([10, 20, 30])
+        weights = np.array([[0.2, 0.5, 0.3], [0.1, 0.1, 0.8], [0.2, 0.5, 0.3]])
+
+        samples = sample_discrete(values, weights, size=3, rng=0)
+
+        self.assertEqual(samples.dtype, values.dtype)
+        self.assertTrue(set(samples.tolist()).issubset(set(values.tolist())))

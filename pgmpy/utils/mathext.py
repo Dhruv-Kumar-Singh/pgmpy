@@ -154,7 +154,7 @@ def sample_discrete(
     if weights.ndim == 1:
         return rng.choice(compat_fns.to_numpy(values), size=size, p=_adjusted_weights(weights))
     else:
-        samples = np.zeros(size, dtype=int)
+        samples = np.empty(size, dtype=compat_fns.to_numpy(values).dtype)
         unique_weights, counts = np.unique(weights, axis=0, return_counts=True)
         for index, size in enumerate(counts):
             samples[(weights == unique_weights[index]).all(axis=1)] = rng.choice(
